@@ -1,4 +1,6 @@
 import zmq
+import sys
+import os
 from zmq.eventloop.zmqstream import ZMQStream
 from zmq.eventloop import ioloop
 ioloop.install()
@@ -6,6 +8,9 @@ ioloop.install()
 from tornado.websocket import WebSocketHandler
 from tornado.web import Application, RequestHandler, StaticFileHandler
 from tornado.ioloop import IOLoop
+
+static_path = sys.path[0] + '/static'
+print(static_path)
 
 class ZMQPair:
     def __init__(self,callback):
@@ -40,7 +45,7 @@ class MainHandler(RequestHandler):
 
 application = Application([
     (r'/',MainHandler),
-    (r'/static/(.*)', StaticFileHandler, {'path': './static'}),
+    (r'/static/(.*)', StaticFileHandler, {'path':static_path}),
     (r'/ws',WSHandler),
 ])
 if __name__ == "__main__":

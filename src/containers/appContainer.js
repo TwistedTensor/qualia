@@ -1,18 +1,22 @@
 import { connect } from 'react-redux';
-import Season from '../components/season.js';
+import Graph from '../components/graph.js';
 import {
-  changeAnimal
+  changeGraph,
+  selectNode,
 } from '../ducks/wsduck.js';
 
 function mapStateToProps(state) {
   return {
-    animal: state.animal // gives our component access to state through props.toDoApp
+    graph: state.graph, // gives our component access to state
+    selectedNode: state.selectedNode,
+    colorBy: state.colorBy,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeAnimal: (animal) => dispatch(changeAnimal(animal)),
+    changeGraph: (graph) => dispatch(changeGraph(graph)),
+    selectNode: (node) => dispatch(selectNode(node)),
     wsDispatch: (message) => {
         var action = JSON.parse(message);
         console.log(message);
@@ -24,4 +28,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Season);
+)(Graph);
