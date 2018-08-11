@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./containers/appContainer.js";
+import App from "./containers/appContainer";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import wsApp from "./ducks/wsduck.js";
+import configureStore from "./ducks/configureStore";
 
-const store = createStore(wsApp);
+const store = configureStore({});
 
 var mountNode = document.getElementById("app");
 ReactDOM.render(

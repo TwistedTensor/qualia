@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import {ForceGraph2D} from "react-force-graph";
 import { interpolateSpectral } from 'd3-scale-chromatic';
 import {
-  changeGraph,
   selectNode,
-} from '../ducks/wsduck.js';
+} from '../ducks/modules/graph';
 
 class GraphPanel extends Component {
   constructor(props) {
+    console.log(props);
     super(props);
     this.state = {
       attr_min:Math.min(...props.graph.nodes.map(props.colorBy)),
@@ -32,15 +32,13 @@ class GraphPanel extends Component {
 
 function mapStateToProps(state) {
   return {
-    graph: state.graph, // gives our component access to state
-    selectedNode: state.selectedNode,
-    colorBy: state.colorBy,
+    graph: state.graph.graph, // gives our component access to state
+    colorBy: state.graph.colorBy,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeGraph: (graph) => dispatch(changeGraph(graph)),
     selectNode: (node) => dispatch(selectNode(node)),
   }; // here we're mapping actions to props
 }

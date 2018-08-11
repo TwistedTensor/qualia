@@ -1,4 +1,8 @@
-// Initial values
+// actions
+const CHANGE_GRAPH = 'ws/CHANGE_GRAPH';
+const SELECT_NODE = 'ws/SELECT_NODE';
+
+// reducers
 const init_graph = {
     nodes:[
         {
@@ -26,11 +30,6 @@ const init_state = {
     selectedNode:Object.values(init_graph.nodes)[0],
 }
 
-// actions
-const CHANGE_GRAPH = 'ws/CHANGE_GRAPH';
-const SELECT_NODE = 'ws/SELECT_NODE';
-
-// reducers
 export default function reducer(state = init_state, action = {}) {
   switch( action.type ) {
     case CHANGE_GRAPH:

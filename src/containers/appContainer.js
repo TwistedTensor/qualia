@@ -2,10 +2,6 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Websocket from "react-websocket";
 import GraphPanel from "../containers/graphPanel";
-import {
-  changeGraph,
-  selectNode,
-} from '../ducks/wsduck.js';
 
 const phiBig = .618;
 const phiSmall = .381;
@@ -54,19 +50,12 @@ class App extends Component {
   }
 }
 
-
-function mapStateToProps(state) {
-  return {
-    graph: state.graph, // gives our component access to state
-    selectedNode: state.selectedNode,
-    colorBy: state.colorBy,
-  }
+const mapStateToProps = (state, ownProps) => {
+  return {}
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeGraph: (graph) => dispatch(changeGraph(graph)),
-    selectNode: (node) => dispatch(selectNode(node)),
     wsDispatch: (message) => {
         var action = JSON.parse(message);
         console.log(message);
