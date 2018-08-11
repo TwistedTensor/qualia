@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Main from '../components/main.js';
 import {ForceGraph2D} from "react-force-graph";
 import { interpolateSpectral } from 'd3-scale-chromatic';
 import {
