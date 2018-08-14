@@ -1,21 +1,22 @@
 // actions
-const CHANGE_GRAPH = 'ws/CHANGE_GRAPH';
-const SELECT_NODE = 'ws/SELECT_NODE';
+const CHANGE_GRAPH = 'graph/CHANGE_GRAPH';
+const SELECT_NODE = 'graph/SELECT_NODE';
+const CHANGE_COLOR_BY = 'graph/CHANGE_COLOR_BY'; 
 
 // reducers
 const init_graph = {
     nodes:[
         {
             id:'a',
-            summary:{val1:0},
+            summary:{val1:0,val2:3},
         },
         {
             id:'b',
-            summary:{val1:1},
+            summary:{val1:1,val2:2},
         },
         {
             id:'c',
-            summary:{val1:2},
+            summary:{val1:2,val2:1},
         },
     ],
     links:[
@@ -26,7 +27,8 @@ const init_graph = {
 
 const init_state = {
     graph:init_graph,
-    colorBy:node=>node.summary.val1,
+    colorBy:'val1',
+    summaryVars:['val1','val2'],
     selectedNode:Object.values(init_graph.nodes)[0],
 }
 
@@ -35,15 +37,19 @@ export default function reducer(state = init_state, action = {}) {
     case CHANGE_GRAPH:
       var newGraph = action.payload;
       var firstNode = new_graph.nodes[0];
-      var firstVar = Object.keys(firstNode.summary)[0];
+      var summaryVars = Object.keys(firstNode.summary);
+      var firstVar = summaryVars[0];
       var update = {
-        graph:new_payload,
-        colorBy:node=>node.summary[firstVar],
+        graph:newGraph,
+        summaryVars:summaryVars,
+        colorBy:firstVar,
         selectedNode:firstNode,
       }
       return Object.assign({},state,update);
     case SELECT_NODE:
       return Object.assign({},state,{selectedNode:action.payload});
+    case CHANGE_COLOR_BY:
+      return Object.assign({},state,{colorBy:action.payload});
     default:
       return state;
   }
@@ -58,4 +64,8 @@ export function selectNode(node) {
   return {type:SELECT_NODE,payload:node.summary}
 }
 
+export function changeColorBy(val) {
+  console.log(val)
+  return {type:CHANGE_COLOR_BY,payload:val}
+}
 // thunks

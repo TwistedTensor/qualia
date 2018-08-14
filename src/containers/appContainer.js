@@ -2,6 +2,13 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Websocket from "react-websocket";
 import GraphPanel from "../containers/graphPanel";
+import ColorBySelector from "../components/colorBySelector";
+import ReactJson from 'react-json-view'
+
+import {
+      selectNode,
+      changeColorBy,
+} from '../ducks/modules/graph';
 
 const phiBig = .618;
 const phiSmall = .381;
@@ -40,10 +47,11 @@ class App extends Component {
         <GraphPanel width={graphWidth} height={mainHeight}/>
       </div>
       <div style={{ float:'right',width:sideWidth,height:sideHeight,backgroundColor:bkgdCol1 }}>
-        info
+        <h3 style={{ color : '#eee8d5' }}>Node details</h3>
+        <ReactJson src={this.props.selectedNode} theme='solarized'/>
       </div>
       <div style={{ float:'right',width:sideWidth,height:sideHeight,backgroundColor:bkgdCol2 }}>
-        controls
+        <ColorBySelector value={this.props.colorBy} options={this.props.summaryVars} handleChange={this.props.changeColorBy}/>
       </div>
      </div>
     )
@@ -51,11 +59,16 @@ class App extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {}
+  return {
+    selectedNode: state.graph.selectedNode,
+    colorBy: state.graph.colorBy,
+    summaryVars: state.graph.summaryVars,
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    changeColorBy: (event) => dispatch(changeColorBy(event.target.value)),
     wsDispatch: (message) => {
         var action = JSON.parse(message);
         console.log(message);

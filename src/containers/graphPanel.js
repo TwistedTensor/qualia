@@ -8,13 +8,22 @@ import {
 
 class GraphPanel extends Component {
   constructor(props) {
-    console.log(props);
     super(props);
-    this.state = {
-      attr_min:Math.min(...props.graph.nodes.map(props.colorBy)),
-      attr_min:Math.max(...props.graph.nodes.map(props.colorBy)),
-    }
   }
+  getColorFunc() {
+    const val=this.props.colorBy;
+    console.log(val);
+    const colorVals=this.props.graph.nodes.map(n=>n.summary[val]);
+    console.log(colorVals);
+    const min = Math.min(...colorVals);
+    const max = Math.max(...colorVals);
+    const scale = max - min;
+    console.log([min,max,scale]);
+    const f = (d) => interpolateSpectral((d.summary[val] - min)/scale);
+    console.log(this.props.graph.nodes.map(f));
+    return f
+  } 
+
   render() {
     return (
     <ForceGraph2D 
@@ -22,7 +31,7 @@ class GraphPanel extends Component {
       graphData={this.props.graph}
       backgroundColor='#002b36'
       nodeLabel='id'
-      nodeColor={d => (interpolateSpectral((this.props.colorBy(d) - this.state.attr_min)/(this.state.attr_max-this.state.attr_min)))}
+      nodeColor={this.getColorFunc()}
       linkColor={()=>'#eee8d5'}
       onNodeClick={this.props.selectNode}
     />
