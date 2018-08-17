@@ -44,7 +44,7 @@ class App extends Component {
     <div style={{ height:mainHeight,width:mainWidth}}>
       <Websocket url='ws://localhost:8888/ws' onMessage={this.props.wsDispatch}/>
       <div style={{ float:'left' }}>
-        <GraphPanel width={graphWidth} height={mainHeight}/>
+        <GraphPanel width={graphWidth} height={mainHeight} distBy='val'/>
       </div>
       <div style={{ float:'right',width:sideWidth,height:sideHeight,backgroundColor:bkgdCol1 }}>
         <h3 style={{ color : '#eee8d5' }}>Node details</h3>

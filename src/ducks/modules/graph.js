@@ -20,8 +20,8 @@ const init_graph = {
         },
     ],
     links:[
-        {source:'a',target:'b'},
-        {source:'a',target:'c'},
+        {source:'a',target:'b',val:20},
+        {source:'a',target:'c',val:33},
     ],
 }
 
