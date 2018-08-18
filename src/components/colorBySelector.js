@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import colors from '../colors'
 
 class colorBySelector extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class colorBySelector extends Component {
     );
     return (
       <form>
-        <label>
+        <label style={{color:colors.base01}}>
           Color node by:
           <select value={this.props.value} onChange={this.props.handleChange}>
             {optionElements}

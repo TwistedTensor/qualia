@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import colors from '../colors';
 import { connect } from 'react-redux';
 import {ForceGraph2D} from "react-force-graph";
 import { interpolateSpectral } from 'd3-scale-chromatic';
@@ -43,10 +44,10 @@ class GraphPanel extends Component {
         ref={el => this.fg = el} // This lets us refer to the graph object as this.fg in componentDidMount
         width={this.props.width}
         graphData={this.props.graph}
-        backgroundColor='#002b36'
+        backgroundColor={colors.base03}
         nodeLabel='id'
         nodeColor={this.getColorFunc()}
-        linkColor={()=>'#eee8d5'}
+        linkColor={()=>colors.base0}
         onNodeClick={this.props.selectNode}
       />
     )

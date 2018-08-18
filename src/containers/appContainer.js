@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Websocket from "react-websocket";
 import GraphPanel from "../containers/graphPanel";
 import ColorBySelector from "../components/colorBySelector";
+import colors from '../colors'
 import ReactJson from 'react-json-view'
 
 import {
@@ -12,8 +13,6 @@ import {
 
 const phiBig = .618;
 const phiSmall = .381;
-const bkgdCol1 = '#073642';
-const bkgdCol2 = '#002b36';
 
 class App extends Component {
   constructor(props) {
@@ -46,11 +45,12 @@ class App extends Component {
       <div style={{ float:'left' }}>
         <GraphPanel width={graphWidth} height={mainHeight} distBy='val'/>
       </div>
-      <div style={{ float:'right',width:sideWidth,height:sideHeight,backgroundColor:bkgdCol1 }}>
-        <h3 style={{ color : '#eee8d5' }}>Node details</h3>
+      <div style={{ float:'right',width:sideWidth,height:sideHeight,backgroundColor:colors.base03 }}>
+        <h3 style={{ color : colors.base00}}>Node details</h3>
         <ReactJson src={this.props.selectedNode} theme='solarized'/>
       </div>
-      <div style={{ float:'right',width:sideWidth,height:sideHeight,backgroundColor:bkgdCol2 }}>
+      <div style={{ float:'right',width:sideWidth,height:sideHeight,backgroundColor:colors.base02 }}>
+        <h3 style={{ color : colors.base00}}>Graph options</h3>
         <ColorBySelector value={this.props.colorBy} options={this.props.summaryVars} handleChange={this.props.changeColorBy}/>
       </div>
      </div>

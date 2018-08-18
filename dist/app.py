@@ -38,7 +38,7 @@ class WSHandler(WebSocketHandler):
         self.pair.socket.send_string(message)
 
     def on_close(self):
-        self.socket.close()
+        self.pair.socket.close()
         print('connection closed')
 
     def on_data(self,data):
