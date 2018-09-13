@@ -27,18 +27,26 @@ class ZMQPair:
 class WSHandler(WebSocketHandler):
     def initialize(self,socket_port=default_socket_port):
         self.socket_port = socket_port
+        self.zmq_open = False
+        print('websocket initialized')
 
     def open(self):
-        print('initializing zmq socket on {}'.format(self.socket_port))
-        self.pair = ZMQPair(self.on_data,self.socket_port)
-        print('connection initialized')
+        if self.zmq_open:
+            print('zmq pair on port {}'.format(self.socket_port))
+        else:
+            print('initializing zmq socket on {}'.format(self.socket_port))
+            self.pair = ZMQPair(self.on_data,self.socket_port)
+            self.zmq_open = True
+            print('connection initialized')
 
     def on_message(self,message):
         print(message)
         self.pair.socket.send_string(message)
 
     def on_close(self):
-        self.pair.socket.close()
+        if self.zmq_open:
+            self.pair.socket.close()
+            self.zmq_open = False
         print('connection closed')
 
     def on_data(self,data):
